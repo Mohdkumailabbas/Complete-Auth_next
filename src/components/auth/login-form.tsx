@@ -1,17 +1,17 @@
 import React from 'react'
-import { CardWrapper } from './card-wrapper'
+import { CardWrapper } from '@/components/auth/card-wrapper'
 
 export const Loginform = () => {
     return (
         <CardWrapper
         headerLable='Welcome Back'
-        backButtonLable=" don't have an account"
+        backButtonLable=" Don't have an account"
         backButtonHref='/auth/register'
         showSocial
         >
 
-            <div className=' text-white'>
-                <h1 className='text-xl'>login</h1>
+            <div className=''>
+                <h1 className='text-xl capitalize '>login</h1>
             </div>
         </CardWrapper>
     )
