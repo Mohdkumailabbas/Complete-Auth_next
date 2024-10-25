@@ -15,6 +15,7 @@ import {
 
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
+import { Button } from '@/components/ui/button'
 export const Loginform = () => {
     //infer: This is a utility function provided by Zod. It extracts the TypeScript type from a defined schema.
     const form = useForm<z.infer<typeof LoginSchema>>({
@@ -25,6 +26,9 @@ export const Loginform = () => {
             password: ''
         }//Overall, this code initializes a form using useForm from a library like react-hook-form, sets up Zod for schema validation, and defines default values for the form fields. 
     })
+    const onSubmit =(values:z.infer<typeof LoginSchema>)=> {
+    console.log(values);
+    }
     return (
         <CardWrapper
             headerLable='Welcome Back'
@@ -36,7 +40,7 @@ export const Loginform = () => {
             <Form {...form}>
                 {/* Example: If form contains properties like onChange, onBlur, or any state variables, using {...form} effectively passes those to the Form component. */}
                 <form className='space-y-6'
-                 onSubmit={form.handleSubmit(() => { })}>
+                 onSubmit={form.handleSubmit(onSubmit)}>
                 <div className='space-y-4'>
                  <FormField
                   control={form.control}
@@ -79,6 +83,7 @@ export const Loginform = () => {
 
                  </FormField>
                 </div>
+                 <Button className=' w-full'> Login</Button>
                 </form>
             </Form>
 
