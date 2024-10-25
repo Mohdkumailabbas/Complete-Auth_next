@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import { Button } from '@/components/ui/button'
+import { FormError } from '@/components/form-error'
 export const Loginform = () => {
     //infer: This is a utility function provided by Zod. It extracts the TypeScript type from a defined schema.
     const form = useForm<z.infer<typeof LoginSchema>>({
@@ -83,6 +84,7 @@ export const Loginform = () => {
 
                  </FormField>
                 </div>
+                 <FormError/>
                  <Button className=' w-full'> Login</Button>
                 </form>
             </Form>
