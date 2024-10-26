@@ -1,5 +1,5 @@
 "use client"
-import React, { useTransition } from 'react'
+import React, { useState, useTransition } from 'react'
 import * as z from "zod"
 import { LoginSchema } from '@/schemas'
 import { CardWrapper } from '@/components/auth/card-wrapper'
@@ -21,8 +21,8 @@ import { FormSuccess } from '../form-succes'
 import { login } from '@/app/auth/actions/login'
 export const Loginform = () => {
     const[isPending,startTransition]=useTransition();
-    const[success,setSuccess]=("");
-    const[error,setError]=("");
+    const[success,setSuccess]=useState<string | undefined>("");
+    const[error,setError]= useState<string | undefined>("");
     //infer: This is a utility function provided by Zod. It extracts the TypeScript type from a defined schema.
     const form = useForm<z.infer<typeof LoginSchema>>({
         //The resolver is a function that integrates Zod validation with the form library.
@@ -33,9 +33,15 @@ export const Loginform = () => {
         }//Overall, this code initializes a form using useForm from a library like react-hook-form, sets up Zod for schema validation, and defines default values for the form fields. 
     })
     const onSubmit =(values:z.infer<typeof LoginSchema>)=> {
+        setSuccess("")
+        setError("")
      startTransition(()=>{
-         login(values);//sendin data to server
-     })
+         login(values)//sendin data to server
+          .then((data)=>{
+             setSuccess(" Successfully Created")
+             setError(data.error)
+          })
+        })
     }
     return (
         <CardWrapper
@@ -93,8 +99,8 @@ export const Loginform = () => {
 
                  </FormField>
                 </div>
-                <FormSuccess />
-                 <FormError/>
+                <FormSuccess message={success} />
+                 <FormError message= {error}/>
                  <Button disabled={isPending} className=' w-full'> Login</Button>
                 </form>
             </Form>
