@@ -2,3 +2,5 @@ ek login page bnaya->usme humne loginform render kr diya -> login form me cardwr
 from edit krna start kiya
 The resolver is a function that integrates Zod validation with the form library.
 zodResolver(LoginSchema) is a specific function that takes a Zod schema (LoginSchema in this case) and returns a resolver that can validate the form data against that schema. This ensures that when the form is submitted, the data is checked against the rules defined in LoginSchema.
+setting up prisma
+npx i prisma -> npx prisma init-> url from neondb
