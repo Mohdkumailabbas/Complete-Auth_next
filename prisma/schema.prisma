@@ -5,3 +5,42 @@ datasource db {
   // comment next line if you use Prisma >5.10
   directUrl = env("DATABASE_URL_UNPOOLED")
 }
+// Client generator definition
+generator client {
+  provider = "prisma-client-js" // Generates a JavaScript/TypeScript Prisma client
+}
+
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  accounts      Account[] 
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  user                     User?   @relation(fields: [userId], references: [id])
+ 
+
+ 
+  @@unique([provider, providerAccountId])
+  // Makes sure that the combination of provider (like Google, Facebook) and providerAccountId (an ID unique to each user in that provider) is unique in the table.
+  //  This ensures you won’t accidentally add two entries with the same provider and providerAccountId. For example, you can’t have two entries with the same Google ID for the same user.
+  @@index([userId])
+  //  When you’re looking up records by userId, having an index makes the search faster, helping the database locate information more quickly.
+}
