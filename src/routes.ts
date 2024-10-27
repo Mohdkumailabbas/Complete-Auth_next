@@ -1,5 +1,8 @@
 export const publicRoutes=[
-    '/'
+    '/',
+    '/auth/login', // Allow access to login
+  '/auth/register'
+
 ]
 
 export const authRoutes=[
