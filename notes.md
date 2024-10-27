@@ -8,3 +8,4 @@ go to auth js ->adapters->prisma make models->genrate->push
 setting up next auth
 authjs->install->auth.ts->copy paster
 ->api/auth/[nextauth]/route->paste
+-> npx auth secret
