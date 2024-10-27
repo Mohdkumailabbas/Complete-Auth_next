@@ -42,9 +42,14 @@ export const RegisterForm = () => {
         startTransition(() => {
             register(values)//sendin data to server
                 .then((data) => {
-                    setSuccess(" Successfully Created")
-                    setError(data.error)
+                    if(data.error){
+                        setError(data.error)
+                    }
+                    else{
+                        setSuccess("Successfully created")
+                    }
                 })
+                .catch(()=>setError("An Unexpected Error"))
         })
     }
     return (
@@ -93,6 +98,13 @@ export const RegisterForm = () => {
                                             type='email'
                                             placeholder='Enter your email'
                                             disabled={isPending}
+                                            onChange={(e)=>{
+                                                field.onChange(e)
+                                                // When you call field.onChange(e), it updates the form state with the current value of the email input.
+                                                if(error){
+                                                    setError("")
+                                                }
+                                            }}
                                         />
                                         {/* FORMCONTROL Provides additional functionality or styling to the input, making it more manageable. */}
                                     </FormControl>

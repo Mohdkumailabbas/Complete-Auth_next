@@ -1,13 +1,38 @@
 "use server";
 import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
-
+import bcrypt from "bcrypt";
+import { db } from "@/lib/db";
 
 export async function register(values: z.infer<typeof RegisterSchema>) {
-// RegisterSchema.safeParse(values) checks if values match the RegisterSchema format without throwing an error.
-  const VailidatedFields = RegisterSchema.safeParse(values)
-  if(!VailidatedFields) {
-    return {error:"Invalid Fields"}
+  // Validate the fields using safeParse
+  const VailidatedFields = RegisterSchema.safeParse(values);
+  
+  if (!VailidatedFields.success) {  // Check if parsing succeeded
+    return { error: "Invalid Fields" };
   }
-  return{success:"Successfully created"}
+
+  const { name, email, password } = VailidatedFields.data;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Check if user already exists before creating a new user
+  const existingUser = await db.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    return { error: "Email already in use" }; // Return and stop execution
+  }
+
+  // Create the user only if the email is not in use
+  await db.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword,
+    },
+  });
+
+  // TODO: send verification email
+  return { success: "Email Sent" };
 }
