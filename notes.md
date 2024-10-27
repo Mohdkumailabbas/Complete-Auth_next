@@ -5,3 +5,6 @@ zodResolver(LoginSchema) is a specific function that takes a Zod schema (LoginSc
 setting up prisma
 npx i prisma -> npx prisma init-> url from neondb->genrate->db.ts->npx db push(syncs your Prisma schema changes directly to your Neon database without needing migrations.)->user table will be created in db
 go to auth js ->adapters->prisma make models->genrate->push
+setting up next auth
+authjs->install->auth.ts->copy paster
+->api/auth/[nextauth]/route->paste
