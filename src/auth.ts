@@ -3,21 +3,28 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 
 import { db } from "./lib/db";
 import { authConfig } from "./auth.config";
+import { getUserById } from "@/app/auth/data/user";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks:{
     // Callbacks are asynchronous functions you can use to control what happens when an action is performed.
    async session({token,session}){
-    console.log({sessionToken:token, session})
+    console.log({sessionToken:token})
     if(token.sub && session.user){
-      session.user.id=token.sub//sendin token sub(id) in to session
+      session.user.id=token.sub
+      //sendin token sub(id) in to session
+    }
+    if(token.role && session.user){
+      session.user.role=token.role //now role will be added to session
     }
     return session
 
    },
     async jwt({token}){
-    console.log({token})
-    token.customFiled="test"
+     if(!token.sub) return token;
+     const existingUser=await getUserById(token.sub)
+     if(!existingUser) return token
+     token.role=existingUser.role//feteched user through id now add role to token
     return token
    } 
   },
