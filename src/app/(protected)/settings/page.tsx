@@ -1,9 +1,23 @@
-import React from 'react'
+import { auth, signOut } from '@/auth';
+import { Session } from '@auth/core/types'; // Import the Session type directly
+import React from 'react';
 
-const page = () => {
+const SettingsPage = async () => {
+  const session: Session | null = await auth();
+
   return (
-    <div>setting</div>
-  )
+    <div>
+      {session && session.user
+        ? JSON.stringify(session)
+        : "No session available"}
+        <form action={async()=>{
+          "use server"
+          await signOut()
+        }}>
+       <button type='submit'> SignOUT</button>
+        </form>
+    </div>
+  );
 }
 
-export default page
+export default SettingsPage;
