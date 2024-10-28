@@ -43,7 +43,7 @@ export const Loginform = () => {
                 setSuccess("")
              }
              else{
-                setSuccess("Successfully Created")
+                setSuccess("Login Created")
                 setError("")
              }
           })
