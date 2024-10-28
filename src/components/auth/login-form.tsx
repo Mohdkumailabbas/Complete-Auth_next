@@ -38,8 +38,14 @@ export const Loginform = () => {
      startTransition(()=>{
          login(values)//sendin data to server
           .then((data)=>{
-             setSuccess(" Successfully Created")
-             setError(data.error)
+             if(data?.error){
+                setError(data.error)
+                setSuccess("")
+             }
+             else{
+                setSuccess("Successfully Created")
+                setError("")
+             }
           })
         })
     }

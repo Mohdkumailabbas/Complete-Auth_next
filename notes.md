@@ -8,7 +8,11 @@ go to auth js ->adapters->prisma make models->genrate->push
 setting up next auth
 authjs->install->auth.ts->copy paster
 ->api/auth/[nextauth]/route->paste
--> npx auth secret->setting up middleware->auth.config.ts(we can't use prisma but mdware works on edge so for smoothly run cb we should create auth.config)
+-> npx auth secret->setting up middleware->auth.config.ts(we can't use prisma but mdware works on edge so for smoothly run cb we should create auth.config)->create middleware
+
+Setting up cred provider
+authconfig (define cred provider)->login.ts 
+login page done
 
 
 

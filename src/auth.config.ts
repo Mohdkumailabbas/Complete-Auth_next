@@ -1,9 +1,9 @@
 import Credentials from 'next-auth/providers/credentials'; 
 import { LoginSchema } from './schemas';
-import bcrypt from "bcrypt"
+import bcrypt from 'bcryptjs';
  // import GitHub from "next-auth/providers/github"
 import type { NextAuthConfig } from "next-auth"
-import { getUserByEmail } from './app/auth/data/user';
+import { getUserByEmail } from '@/app/auth/data/user';
  
 export const authConfig:NextAuthConfig=
  { providers: [ 
