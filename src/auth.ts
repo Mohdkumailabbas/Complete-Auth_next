@@ -15,7 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       //sendin token sub(id) in to session
     }
     if(token.role && session.user){
-      session.user.role=token.role //now role will be added to session
+      session.user.role=token.role as "ADMIN"||"USER" //now role will be added to session
     }
     return session
 
