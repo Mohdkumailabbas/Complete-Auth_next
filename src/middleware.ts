@@ -15,11 +15,7 @@ export default auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
-  console.log("Request URL:", nextUrl.pathname);
-  console.log("Is Logged In:", isLoggedIn);
-  console.log("Is API Auth Route:", isApiAuthRoute);
-  console.log("Is Public Route:", isPublicRoute);
-  console.log("Is Auth Route:", isAuthRoute);
+ 
     //     // Skip API auth routes
   if(isApiAuthRoute){
     return;
@@ -27,16 +23,13 @@ export default auth((req) => {
     // Handle authentication for auth routes
   if(isAuthRoute){
     if(isLoggedIn){
-      console.log("Redirecting to default logged in redirect:", defaultLoggedInRedirect);
       return Response.redirect(new URL(defaultLoggedInRedirect,nextUrl))
     }
     
   }
   if(!isLoggedIn && !isPublicRoute){
     console.log("Redirecting to login page.")
-    return Response.redirect(new URL("/auth/login",nextUrl))
   }
-  console.log("Access granted, no redirection.");
   return
 })
 
