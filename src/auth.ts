@@ -7,6 +7,10 @@ import { getUserById } from "@/app/auth/data/user";
 import { UserRole } from "@prisma/client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages:{
+    signIn:"/auth/login",
+    error:"/auth/error" //if error it will be redirected
+  },
    events:{
     async linkAccount({user}){
       await db.user.update({//updating so oauth user will verfiy email by there own

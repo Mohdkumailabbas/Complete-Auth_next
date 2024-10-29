@@ -20,6 +20,10 @@ export default auth((req) => {
   if(isApiAuthRoute){
     return;
   }
+    // Allow access to `/auth/error` for unauthenticated users
+    if (nextUrl.pathname === '/auth/error') {
+      return;
+    }
     // Handle authentication for auth routes
   if(isAuthRoute){
     if(isLoggedIn){
