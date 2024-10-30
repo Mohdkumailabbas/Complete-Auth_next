@@ -16,6 +16,7 @@ login page done
 
 sending emails
 creat table->define function to gettokebbyemail and gettokenbyemail->define lib/token.ts->install uuid ->register.ts
+setiting up resedn install it ->lib/mail.ts->after setting up-> register.tsx
 
 //note:-
 // If the value is "truthy" (e.g., a non-zero number, a non-empty string, an object), ! will convert it to false.
