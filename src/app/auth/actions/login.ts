@@ -7,6 +7,7 @@ import { AuthError } from "next-auth";
 import { getUserByEmail } from "../data/user";
 
 import { generateVerificationToken } from "@/lib/token";
+import { sendVerificationEmail } from "@/lib/mail";
 
 
 export async function login(values: z.infer<typeof LoginSchema>) {
@@ -23,7 +24,11 @@ export async function login(values: z.infer<typeof LoginSchema>) {
   if(!existingUser.emailVerified){
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const verficationToken = await generateVerificationToken(existingUser.email)
-   return{success:"Confirmation email sent"} //returning if email is not verified
+    await sendVerificationEmail(
+     verficationToken.email,
+     verficationToken.token  
+    )
+    return{success:"Confirmation email sent"} //returning if email is not verified
   }
 
   try {
