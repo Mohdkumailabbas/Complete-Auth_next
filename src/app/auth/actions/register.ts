@@ -4,6 +4,7 @@ import { RegisterSchema } from "@/schemas";
 import bcrypt from 'bcryptjs';;
 import { db } from "@/lib/db";
 import { getUserByEmail } from "../data/user";
+import { generateVerificationToken } from "@/lib/token";
 
 export async function register(values: z.infer<typeof RegisterSchema>) {
   // Validate the fields using safeParse
@@ -32,6 +33,7 @@ export async function register(values: z.infer<typeof RegisterSchema>) {
     },
   });
 
-  // TODO: send verification email
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+ const verificationToken= generateVerificationToken(email)
   return { success: "Email Sent" };
 }

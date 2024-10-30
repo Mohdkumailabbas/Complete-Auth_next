@@ -46,7 +46,7 @@ export const RegisterForm = () => {
                         setError(data.error)
                     }
                     else{
-                        setSuccess("Successfully created")
+                        setSuccess("Confirmation Email Sent")
                     }
                 })
                 .catch(()=>setError("An Unexpected Error"))

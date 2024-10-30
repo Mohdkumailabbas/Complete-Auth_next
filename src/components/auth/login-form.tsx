@@ -19,7 +19,12 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '../form-succes'
 import { login } from '@/app/auth/actions/login'
+import { useSearchParams } from 'next/navigation'
 export const Loginform = () => {
+    const searchParms=useSearchParams(); // The useSearchParams hook manages and manipulates URL query parameters for syncing UI state with the URL.
+    const urlError=searchParms.get("error")==="OAuthAccountNotLinked"
+    ? "Email already in use with diffrent provider"
+    :""
     const[isPending,startTransition]=useTransition();
     const[success,setSuccess]=useState<string | undefined>("");
     const[error,setError]= useState<string | undefined>("");
@@ -106,7 +111,7 @@ export const Loginform = () => {
                  </FormField>
                 </div>
                 <FormSuccess message={success} />
-                 <FormError message= {error}/>
+                 <FormError message= {error || urlError}/>
                  <Button disabled={isPending} className=' w-full'> Login</Button>
                 </form>
             </Form>
