@@ -20,7 +20,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
    },
   callbacks:{
-  
+    async signIn({user,account}){
+      if(account?.provider !== "credentials") return true
+      if (!user.id) {
+        return false; // Prevent sign-in if user.id is not defined
+      }
+      const existingUser= await getUserById(user.id)
+      if(!existingUser?.emailVerified) return false 
+      //todo 2FA
+      return true
+    },
     // Callbacks are asynchronous functions you can use to control what happens when an action is performed.
    async session({token,session}){
     // console.log({sessionToken:token})

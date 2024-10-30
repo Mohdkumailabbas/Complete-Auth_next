@@ -4,6 +4,9 @@ import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { defaultLoggedInRedirect } from "@/routes";
 import { AuthError } from "next-auth";
+import { getUserByEmail } from "../data/user";
+
+import { generateVerificationToken } from "@/lib/token";
 
 
 export async function login(values: z.infer<typeof LoginSchema>) {
@@ -13,6 +16,16 @@ export async function login(values: z.infer<typeof LoginSchema>) {
     return {error:"Invalid Fields"}
   }
   const {email ,password} =VailidatedFields.data;
+  const existingUser = await getUserByEmail(email);
+  if(!existingUser || !existingUser.email || !existingUser.password){
+    return {error:"Email does not exist"}
+  }
+  if(!existingUser.emailVerified){
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const verficationToken = await generateVerificationToken(existingUser.email)
+   return{success:"Confirmation email sent"} //returning if email is not verified
+  }
+
   try {
     await signIn("credentials",{
       email,

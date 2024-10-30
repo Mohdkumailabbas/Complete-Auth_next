@@ -46,6 +46,10 @@ export const Loginform = () => {
              if(data?.error){
                 setError(data.error)
                 setSuccess("")
+             } 
+             else if(data?.success){
+                setSuccess(data.success);
+                setError("")
              }
              else{
                 setSuccess("Login Created")
