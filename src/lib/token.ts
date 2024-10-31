@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { getVerficationTokenByEmail } from "@/app/auth/data/verification-token";
+import { getVerficationTokenByEmail } from "@/app/auth/data/verificationToken";
 import {v4 as uuidv4} from "uuid";
 import { db } from "./db";
+
 
 export const generateVerificationToken=async(email:string)=>{
     const token =uuidv4()//enerates a new unique identifier using the uuidv4 function, which creates a universally unique identifier (UUID) in version 4 format

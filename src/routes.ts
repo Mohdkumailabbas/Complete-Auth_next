@@ -1,7 +1,8 @@
 export const publicRoutes=[
     '/',
     '/auth/login', // Allow access to login
-  '/auth/register'
+  '/auth/register',
+  '/auth/new-verification'
 
 ]
 
