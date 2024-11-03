@@ -24,6 +24,9 @@ newVerification form->newverification.ts->callin newverification on submit
 
 Reset password-> create reset-passwordpage-> resetform->design fronted-> create scheema fr validation->create action for handeling backend data->creating db schema for creating token->resetpassword.ts in/auth/data->add fn in token.ts in /lib->mail.ts->reset.ts
 
+creating newpassword form
+create a page->form->schmema->design form->extract token from url->create server action
+
 //note:-
 // If the value is "truthy" (e.g., a non-zero number, a non-empty string, an object), ! will convert it to false.
 // If the value is "falsy" (e.g., null, undefined, 0, NaN, ""), ! will convert it to true.
