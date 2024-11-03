@@ -27,6 +27,12 @@ Reset password-> create reset-passwordpage-> resetform->design fronted-> create 
 creating newpassword form
 create a page->form->schmema->design form->extract token from url->create server action
 
+**2fa
+update db->create two factor.ts->twofactorconfirmation.ts
+->token.tstok->mail.ts->auth.ts->login.ts->now add schema and add code fiel in login page->login destruce code
+
+
+
 //note:-
 // If the value is "truthy" (e.g., a non-zero number, a non-empty string, an object), ! will convert it to false.
 // If the value is "falsy" (e.g., null, undefined, 0, NaN, ""), ! will convert it to true.
