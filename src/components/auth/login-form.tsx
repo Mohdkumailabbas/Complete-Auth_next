@@ -21,6 +21,7 @@ import { FormSuccess } from '../form-succes'
 import { login } from '@/app/auth/actions/login'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 export const Loginform = () => {
     const searchParms = useSearchParams(); // The useSearchParams hook manages and manipulates URL query parameters for syncing UI state with the URL.
     const urlError = searchParms.get("error") === "OAuthAccountNotLinked"
@@ -37,9 +38,10 @@ export const Loginform = () => {
         defaultValues: {
             email: '',
             password: '',
-            code:''
+            code: ''
         }//Overall, this code initializes a form using useForm from a library like react-hook-form, sets up Zod for schema validation, and defines default values for the form fields. 
     })
+    const router = useRouter();
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         setSuccess("")
         setError("")
@@ -54,7 +56,11 @@ export const Loginform = () => {
                     else if (data?.success) {
                         form.reset()
                         setSuccess(data.success);
-                        setError("")
+                        setError("");
+                        // Redirect to the specified URL
+                        if (data.redirectTo) {
+                            router.push(data.redirectTo); // Use router to navigate
+                        }
                     }
                     else if (data?.twoFactor) {
                         setShowTwoFactor(true)
@@ -82,29 +88,29 @@ export const Loginform = () => {
                 <form className='space-y-6'
                     onSubmit={form.handleSubmit(onSubmit)}>
                     <div className='space-y-4'>
-                        {showTwoFactor &&(
+                        {showTwoFactor && (
                             <FormField
-                            control={form.control}
-                            name='code'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Two Factor Code</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder='Enter your Code'
-                                            disabled={isPending}
-                                        />
-                                        {/* FORMCONTROL Provides additional functionality or styling to the input, making it more manageable. */}
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        >
+                                control={form.control}
+                                name='code'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Two Factor Code</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                placeholder='Enter your Code'
+                                                disabled={isPending}
+                                            />
+                                            {/* FORMCONTROL Provides additional functionality or styling to the input, making it more manageable. */}
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            >
 
-                        </FormField>
+                            </FormField>
                         )}
-                        {!showTwoFactor &&(
+                        {!showTwoFactor && (
                             <>
                                 <FormField
                                     control={form.control}
@@ -161,7 +167,7 @@ export const Loginform = () => {
                     </div>
                     <FormSuccess message={success} />
                     <FormError message={error || urlError} />
-                    <Button disabled={isPending} className=' w-full'>{showTwoFactor ? "Confirm":"Login"}</Button>
+                    <Button disabled={isPending} className=' w-full'>{showTwoFactor ? "Confirm" : "Login"}</Button>
                 </form>
             </Form>
 

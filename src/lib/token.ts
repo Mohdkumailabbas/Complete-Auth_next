@@ -32,7 +32,7 @@ export const generateVerificationToken=async(email:string)=>{
 export const generateTwoFactorToken = async(email:string)=>{
     const token =crypto.randomInt(100_000,1_000_000)
     // it generates a random integer between 100,000 (inclusive) and 1,000,000 (exclusive). This means the possible values for token will be in the range of 100,000 to 999,999.
-     const expires=new Date(new Date().getTime()+3600*1000)
+     const expires=new Date(new Date().getTime()+ 300 * 1000)
 
      const existingToken=await getTwoFactorTokenByEmail(email);
      if(existingToken){

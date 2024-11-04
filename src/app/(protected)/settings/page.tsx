@@ -1,22 +1,21 @@
-import { auth, signOut } from '@/auth';
-import { Session } from '@auth/core/types'; // Import the Session type directly
+"use client"
+import { useSession,signOut } from 'next-auth/react';
 import React from 'react';
 
-const SettingsPage = async () => {
-  const session: Session | null = await auth();
-
+const SettingsPage =  () => {
+ const session=useSession()
+ const onClick=()=>{
+  signOut()
+ }
   return (
     <div>
-      {session && session.user
-        ? JSON.stringify(session)
-        : "No session available"}
-        <form action={async()=>{
-          "use server"
-          await signOut()
-        }}>
-       <button type='submit'> SignOUT</button>
-        </form>
+      {JSON.stringify(session)}
+      <form >
+       <button onClick={onClick} type='submit'> SignOUT</button>
+      </form>
+
     </div>
+        
   );
 }
 

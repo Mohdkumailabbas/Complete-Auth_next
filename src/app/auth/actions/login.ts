@@ -2,7 +2,7 @@
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
-import { defaultLoggedInRedirect } from "@/routes";
+// import { defaultLoggedInRedirect } from "@/routes";
 import { AuthError } from "next-auth";
 import { getUserByEmail } from "@/app/auth/data/user";
 import { generateTwoFactorToken, generateVerificationToken } from "@/lib/token";
@@ -45,7 +45,7 @@ export async function login(values: z.infer<typeof LoginSchema>) {
 
       // Check for existing confirmation
       const existingConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id);
-      console.log("Existing confirmation:", existingConfirmation); // Log found confirmation
+      // console.log("Existing confirmation:", existingConfirmation); // Log found confirmation
 
       if (existingConfirmation) {
         await db.twoFactorConfirmation.delete({
@@ -75,17 +75,18 @@ export async function login(values: z.infer<typeof LoginSchema>) {
     const result = await signIn("credentials", {
       email,
       password,
-      redirectTo: defaultLoggedInRedirect
+      redirect: false
     }) as SignInResult;
+    console.log("result",result)
     if (!result) {
       return { error: "No response from sign-in." };
     }
     if (result.error) {
       return { error: result.error };
     }
-    return { success: "Login successful!" };
+    return { success: "Login successful!", redirectTo: '/settings' };
   } catch (error) {
-    console.error("Sign-in error:", error);
+    // console.error("Sign-in error:", error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
@@ -97,3 +98,36 @@ export async function login(values: z.infer<typeof LoginSchema>) {
     return null
   }
 }
+
+
+
+
+
+// try {
+//   const result = await signIn("credentials", {
+//     email,
+//     password,
+//     redirect:false
+//   }) as SignInResult;
+//   if (!result) {
+//     return { error: "No response from sign-in." };
+//   }
+//   if (result.error) {
+//     return { error: result.error };
+//   }else{
+//     window.location.href=defaultLoggedInRedirect
+//     return { success: "Login successful!" };
+//   }
+// } catch (error) {
+//   console.error("Sign-in error:", error);
+//   if (error instanceof AuthError) {
+//     switch (error.type) {
+//       case "CredentialsSignin":
+//         return { error: "Invalid credentials" };
+//       default:
+//         return { error: "Something went wrong" };
+//     }
+//   }
+//   return null
+// }
+// }
