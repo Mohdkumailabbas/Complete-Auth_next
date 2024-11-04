@@ -31,6 +31,9 @@ create a page->form->schmema->design form->extract token from url->create server
 update db->create two factor.ts->twofactorconfirmation.ts
 ->token.tstok->mail.ts->auth.ts->login.ts->now add schema and add code fiel in login page->login destruce code
 
+userbutton
+create server action->logout.ts
+
 
 
 //note:-
