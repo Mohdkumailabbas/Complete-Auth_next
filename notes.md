@@ -35,6 +35,21 @@ userbutton
 create server action->logout.ts
 
 
+how to extend any field in user
+auth.ts
+export type ExtendedUser =DefaultSession["user"]&{// Create a new type called ExtendedUser, based on DefaultSession's user
+    role:UserRole; //userrole =ADMIN||USER
+    isTwoFactorEnabled:boolean;
+    
+}
+if(session.user){
+      session.user.isTwoFactorEnabled=token.isTwoFactorEnabled as boolean
+    }
+
+     token.isTwoFactorEnabled=existingUser.isTwoFactorEnabled//
+
+
+
 
 //note:-
 // If the value is "truthy" (e.g., a non-zero number, a non-empty string, an object), ! will convert it to false.

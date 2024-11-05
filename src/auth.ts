@@ -54,6 +54,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     if(token.role && session.user){
       session.user.role=token.role as UserRole //now role will be added to session
     }
+    //ading isEnabled prop
+    if(session.user){
+      session.user.isTwoFactorEnabled=token.isTwoFactorEnabled as boolean
+    }
     return session
 
    },
@@ -62,7 +66,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
      const existingUser=await getUserById(token.sub)
      if(!existingUser) return token
      token.role=existingUser.role//feteched user through id now add role to token
-    return token
+     token.isTwoFactorEnabled=existingUser.isTwoFactorEnabled//
+     return token
    } 
   },
   adapter: PrismaAdapter(db),
