@@ -32,3 +32,6 @@ export const RegisterSchema = z.object({
         message: "Name is required and should be at least 2 characters long"
     })
 })
+export const SettingSchema =z.object({
+    name:z.optional(z.string())
+})

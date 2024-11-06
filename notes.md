@@ -51,6 +51,10 @@ if(session.user){
 
 
 
+setting page****
+schema ->setting.ts->settingspage.tsx
+
+
 //note:-
 // If the value is "truthy" (e.g., a non-zero number, a non-empty string, an object), ! will convert it to false.
 // If the value is "falsy" (e.g., null, undefined, 0, NaN, ""), ! will convert it to true.
@@ -58,3 +62,4 @@ if(session.user){
 // !!value will return false if value is falsy.
 nextUrl:. It provides information about the current route that the user is trying to access before any redirection takes place.When a user makes a request to a page in a Next.js application, that request will have a URL associated with it. nextUrl captures this URL, which is useful for various purposes, including redirection.
 Purpose of new URL(def
+kissi bhi chez ko add krna h to next-env.dts me jao the auth ts
