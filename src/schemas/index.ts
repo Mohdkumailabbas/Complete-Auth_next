@@ -45,7 +45,7 @@ export const SettingSchema =z.object({
     if(!data.password && data.newPassword){
         return false
     }
-    return 
+    return true
     
 },{
     message:"Enter Current Password",
@@ -55,7 +55,7 @@ export const SettingSchema =z.object({
     if(data.password && !data.newPassword){
         return false
     }
-    return 
+    return  true
     
 },{
     message:"Please! Enter New Password",

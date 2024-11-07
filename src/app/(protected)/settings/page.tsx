@@ -35,7 +35,8 @@ const SettingsPage = () => {
       email: user?.email || undefined,  // Set default value for name, fallback to empty string if user is undefined
       password: undefined,
       newPassword: undefined,
-      role: user?.role || undefined
+      role: user?.role || undefined,
+      isTwoFactorEnabled:user?.isTwoFactorEnabled || undefined
     }
   });
 
