@@ -24,6 +24,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 export const Loginform = () => {
     const searchParms = useSearchParams(); // The useSearchParams hook manages and manipulates URL query parameters for syncing UI state with the URL.
+    const callBackUrl=searchParms.get("callBackUrl")
     const urlError = searchParms.get("error") === "OAuthAccountNotLinked"
         ? "Email already in use with diffrent provider"
         : ""
@@ -46,7 +47,7 @@ export const Loginform = () => {
         setSuccess("")
         setError("")
         startTransition(() => {
-            login(values)//sendin data to server
+            login(values,callBackUrl ?? undefined)//sendin data to server
                 .then((data) => {
                     if (data?.error) {
                         form.reset()

@@ -5,17 +5,20 @@ import { FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react"; // Make sure to import from next-auth/react
 import { defaultLoggedInRedirect } from "@/routes";
+import { useSearchParams } from "next/navigation";
 export const Social = () => {
+    const searchParms=useSearchParams()
+    const callbackUrl=searchParms.get("callbackUrl")
     const handleGoogleSignIn = () => {
         signIn("google", {
-            callbackUrl: defaultLoggedInRedirect, // Redirect after successful sign-in
+            callbackUrl:callbackUrl|| defaultLoggedInRedirect, // Redirect after successful sign-in
         });
     };
 
     // Function to handle GitHub sign-in
     const handleGithubSignIn = () => {
         signIn("github", {
-            callbackUrl: defaultLoggedInRedirect, // Redirect after successful sign-in
+            callbackUrl: callbackUrl|| defaultLoggedInRedirect, // Redirect after successful sign-in
         });
     };
 
