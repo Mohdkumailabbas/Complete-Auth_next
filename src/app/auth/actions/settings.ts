@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 "use server"
 
 import { CurrentUser } from "@/lib/auth"
@@ -11,6 +12,12 @@ export const settings = async (values: z.infer<typeof SettingSchema>) => {
     if (!user || !user.id)
         return { error: "Access Restricted" }
     const databaseUser = await getUserById(user.id)
+    if(user.isOAuth){
+        values.email=undefined,
+        values.isTwoFactorEnabled=undefined,
+        values.password=undefined,
+        values.newPassword=undefined
+    }
     await db.user.update({
         where: { id: databaseUser?.id },
         data: {
