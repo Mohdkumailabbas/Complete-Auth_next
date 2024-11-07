@@ -1,4 +1,5 @@
 
+import { UserRole } from "@prisma/client"
 import * as z from "zod"
 export const LoginSchema = z.object({
     email: z.string().email({
@@ -33,5 +34,30 @@ export const RegisterSchema = z.object({
     })
 })
 export const SettingSchema =z.object({
-    name:z.optional(z.string())
+    name:z.optional(z.string()),
+    isTwoFactorEnabled:z.optional(z.boolean()),
+    role:z.enum([UserRole.ADMIN,UserRole.USER]),
+    email:z.optional(z.string()),
+    password:z.optional(z.string().min(6)),
+    newPassword:z.optional(z.string().min(6)),
+})
+.refine((data)=>{
+    if(!data.password && data.newPassword){
+        return false
+    }
+    return 
+    
+},{
+    message:"Enter Current Password",
+    path:["password"]
+})
+.refine((data)=>{
+    if(data.password && !data.newPassword){
+        return false
+    }
+    return 
+    
+},{
+    message:"Please! Enter New Password",
+    path:["newPassword"]
 })
