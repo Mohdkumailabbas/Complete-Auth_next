@@ -1,9 +1,9 @@
 import { Resend } from "resend"; // Import the Resend class from the resend package
 
 const resend = new Resend(process.env.RESEND_API_KEY); // Create an instance of Resend using the API key from environment variables
-
+const domain= process.env.NEXT_PUBLIC_APP_URL
 export const sendVerificationEmail = async (email: string, token: string) => { // Define an asynchronous function to send a verification email
-    const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`; // Construct the confirmation link, adding '=' before the token
+    const confirmLink = `${domain}/auth/new-verification?token=${token}`; // Construct the confirmation link, adding '=' before the token
 
     await resend.emails.send({ // Send an email using the Resend API
         from: "onboarding@resend.dev", // Specify the sender's email address
@@ -14,7 +14,7 @@ export const sendVerificationEmail = async (email: string, token: string) => { /
 }; 
 
 export const sendPasswordResetEmail= async(email:string,token:string)=>{
-    const resetLink =`http://localhost:3000/auth/new-password?token=${token}`
+    const resetLink =`${domain}/auth/new-password?token=${token}`
     await resend.emails.send({
         from:"onboarding@resend.dev",
         to:email,
