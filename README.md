@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Next.js Authentication App
+This is a Next.js project that provides user authentication with options for Google and GitHub login integration.
 
-First, run the development server:
+Features
+Email and Password Authentication (requires domain for email functionality)
+Google OAuth
+GitHub OAuth
+Password Reset
+Two-Factor Authentication (2FA)
+Note: Email-related features (e.g., verification, password reset) require a verified domain for email sending, which is not currently set up. Use Google or GitHub login for testing.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+First, clone the repository and install dependencies
+Create a .env.local file in the root of your project with the following variables
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Here's an updated version of the README for your Next.js auth app with relevant details added for an authentication service. I've kept the structure clean and straightforward:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js Authentication App
+This is a Next.js project that provides user authentication with options for Google and GitHub login integration.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Features
+Email and Password Authentication (requires domain for email functionality)
+Google OAuth
+GitHub OAuth
+Password Reset
+Two-Factor Authentication (2FA)
+Note: Email-related features (e.g., verification, password reset) require a verified domain for email sending, which is not currently set up. Use Google or GitHub login for testing.
 
-## Learn More
+Getting Started
+First, clone the repository and install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+Authentication Flow
+Sign Up and Login
+Users can sign up or log in using:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Email (requires a verified domain for sending emails)
+Google OAuth
+GitHub OAuth
+Password Reset
+Users can reset their passwords through an email link.
+(Note: Email functionality requires a verified domain.)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Two-Factor Authentication (2FA)
+A 2FA token is sent to the user's email for added security.
 
-## Deploy on Vercel
+To learn more about Next.js and its features, check out the following resources:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Next.js Documentation
+OAuth Setup for Google
+OAuth Setup for GitHub
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
